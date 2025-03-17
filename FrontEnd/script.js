@@ -17,6 +17,7 @@ async function generateWorks() {
 
         //je recup les données en json
         const json = await response.json();
+        console.log(json);
 
     //je parcours les données pour les afficher et crée les elements
     json.forEach(work => {
@@ -24,6 +25,7 @@ async function generateWorks() {
 
         const workElement = document.createElement("figure");
         workElement.dataset.id = work.id;
+        workElement.dataset.category = work.categoryId;
 
         const workImage = document.createElement("img");
         workImage.src = work.imageUrl;
@@ -44,3 +46,74 @@ async function generateWorks() {
 
 //je lance la fonction
 generateWorks();
+
+//fonction pour generer les boutons de filtres
+function generateBtnFilter() {
+
+    //je recup le nav pour integrer les boutons
+    const navFilter = document.querySelector(".filter");
+
+    //je crée les boutons
+    const tousBtn = document.createElement("button");
+    tousBtn.classList.add("filter__btn");
+    tousBtn.textContent = "Tous";
+    //je leur ajoute un event pour filtrer les travaux
+    tousBtn.addEventListener("click", () => {
+        const works = document.querySelectorAll(".gallery figure");
+        works.forEach(work => {
+            work.style.display = "block";
+        });
+    });
+
+    const objetBtn = document.createElement("button");
+    objetBtn.classList.add("filter__btn");
+    objetBtn.textContent = "Objets";
+    objetBtn.addEventListener("click", () => {
+        const works = document.querySelectorAll(".gallery figure");
+        works.forEach(work => {
+            if(work.dataset.category != 1) {
+                work.style.display = "none";
+            } else {
+                work.style.display = "block";
+            }
+        });
+    });
+
+    const appartementBtn = document.createElement("button");
+    appartementBtn.classList.add("filter__btn");
+    appartementBtn.textContent = "Appartements";
+    appartementBtn.addEventListener("click", () => {
+        const works = document.querySelectorAll(".gallery figure");
+        works.forEach(work => {
+            if(work.dataset.category != 2) {
+                work.style.display = "none";
+            } else {
+                work.style.display = "block";
+            }
+        });
+    });
+
+    const hotelBtn = document.createElement("button");
+    hotelBtn.classList.add("filter__btn");
+    hotelBtn.textContent = "Hotels & Restaurants";
+    hotelBtn.addEventListener("click", () => {
+        const works = document.querySelectorAll(".gallery figure");
+        works.forEach(work => {
+            if(work.dataset.category != 3) {
+                work.style.display = "none";
+            } else {
+                work.style.display = "block";
+            }
+        });
+    });
+
+    //je les integre dans le nav
+    navFilter.appendChild(tousBtn);
+    tousBtn.focus();
+    navFilter.appendChild(objetBtn);
+    navFilter.appendChild(appartementBtn);
+    navFilter.appendChild(hotelBtn);
+}
+
+//je lance la fonction
+generateBtnFilter();
