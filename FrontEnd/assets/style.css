@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 header {
 	display: flex;
@@ -208,6 +209,60 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	padding: 2em;
+	background-color: #FFFFFF;
 }
 
+/* ajout de style pour le lien de connexion */
+
+.lien__login {
+	text-decoration: none;
+	color: black;
+}
+
+.lien__login:hover {
+	font-weight: 600;
+}
+
+.lien__login:visited {
+	font-weight: 600;
+	color: black;
+	text-decoration: none;
+}
+
+/* ajout de style pour le lien d'oubli de mdp */
+
+.mdp__oublie {
+	color: #3D3D3D;
+}
+
+/* ajout de style pour la page de connexion */
+
+.login {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 150px;
+}
+
+.login__form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 60px;
+}
+
+.login__form__input {
+	margin: 10px;
+	padding: 10px;
+	width: 380px;
+	height: 35px;
+	border: 1px #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.login__form__label {
+	display: block;
+    text-align: left;
+    width: 95%;
+}
