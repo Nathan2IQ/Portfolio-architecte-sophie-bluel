@@ -17,7 +17,6 @@ async function generateWorks() {
 
         //je recup les données en json
         const json = await response.json();
-        console.log(json);
 
     //je parcours les données pour les afficher et crée les elements
     json.forEach(work => {
@@ -47,73 +46,104 @@ async function generateWorks() {
 //je lance la fonction
 generateWorks();
 
-//fonction pour generer les boutons de filtres
-function generateBtnFilter() {
 
-    //je recup le nav pour integrer les boutons
-    const navFilter = document.querySelector(".filter");
 
-    //je crée les boutons
-    const tousBtn = document.createElement("button");
-    tousBtn.classList.add("filter__btn");
-    tousBtn.textContent = "Tous";
-    //je leur ajoute un event pour filtrer les travaux
-    tousBtn.addEventListener("click", () => {
-        const works = document.querySelectorAll(".gallery figure");
-        works.forEach(work => {
-            work.style.display = "block";
+//
+// je fais une fonction pour generer les boutons de filtres
+//
+async function generateBtnFilter() {
+
+    const url = "http://localhost:5678/api/categories";
+
+    //je recup les données de l'api pour les category
+    try {
+        const response = await fetch(url);
+
+        if(!response.ok) {
+            throw new Error("Cannot reach data");
+        }
+        const json = await response.json();
+    
+        //je crée les boutons de filtres
+        json.forEach(category => {
+            const navFilter = document.querySelector(".filter");
+            const categoryBtn = document.createElement("button");
+            categoryBtn.classList.add("filter__btn");
+            categoryBtn.textContent = category.name;
+            categoryBtn.dataset.id = category.id;
+            categoryBtn.addEventListener("click", () => {
+                const works = document.querySelectorAll(".gallery figure");
+                works.forEach(work => {
+                    if(work.dataset.category != category.id) {
+                        work.classList.add("display__none");
+                    } else {
+                        work.classList.remove("display__none");
+                    }
+                });
+            });
+            navFilter.appendChild(categoryBtn);
         });
-    });
-
-    const objetBtn = document.createElement("button");
-    objetBtn.classList.add("filter__btn");
-    objetBtn.textContent = "Objets";
-    objetBtn.addEventListener("click", () => {
-        const works = document.querySelectorAll(".gallery figure");
-        works.forEach(work => {
-            if(work.dataset.category != 1) {
-                work.style.display = "none";
-            } else {
-                work.style.display = "block";
-            }
-        });
-    });
-
-    const appartementBtn = document.createElement("button");
-    appartementBtn.classList.add("filter__btn");
-    appartementBtn.textContent = "Appartements";
-    appartementBtn.addEventListener("click", () => {
-        const works = document.querySelectorAll(".gallery figure");
-        works.forEach(work => {
-            if(work.dataset.category != 2) {
-                work.style.display = "none";
-            } else {
-                work.style.display = "block";
-            }
-        });
-    });
-
-    const hotelBtn = document.createElement("button");
-    hotelBtn.classList.add("filter__btn");
-    hotelBtn.textContent = "Hotels & Restaurants";
-    hotelBtn.addEventListener("click", () => {
-        const works = document.querySelectorAll(".gallery figure");
-        works.forEach(work => {
-            if(work.dataset.category != 3) {
-                work.style.display = "none";
-            } else {
-                work.style.display = "block";
-            }
-        });
-    });
-
-    //je les integre dans le nav
-    navFilter.appendChild(tousBtn);
-    tousBtn.focus();
-    navFilter.appendChild(objetBtn);
-    navFilter.appendChild(appartementBtn);
-    navFilter.appendChild(hotelBtn);
+    
+    //si il y a une erreur, je l'affiche
+    } catch(error) {
+        console.error(error.message);
+    }
 }
+
+//je crée un bouton pour afficher tous les travaux
+const navFilter = document.querySelector(".filter");
+const tousBtn = document.createElement("button");
+tousBtn.classList.add("filter__btn");
+tousBtn.textContent = "Tous";
+tousBtn.addEventListener("click", () => {
+    const works = document.querySelectorAll(".gallery figure");
+    works.forEach(work => {
+        work.classList.remove("display__none");
+    });
+});
+navFilter.appendChild(tousBtn);
 
 //je lance la fonction
 generateBtnFilter();
+
+//
+// je fais une fonction pour le login et verifier les infos
+//
+function loginAuthentification() {
+    const loginForm = document.querySelector(".login__form");
+    
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const url = "http://localhost:5678/api/users/login";
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password }),
+            })
+            if(!response.ok) {
+                throw new Error("Cannot reach data");
+            }
+
+            const json = await response.json();
+            const token = json.token;
+            console.log(token);
+
+            localStorage.setItem("token", token);
+
+            window.location.href = "index.html";
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    });
+}
+
+loginAuthentification();

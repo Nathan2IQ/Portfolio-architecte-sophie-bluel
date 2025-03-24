@@ -10,8 +10,12 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="script.js" defer></script>
+	<script src="https://kit.fontawesome.com/24555f729d.js" crossorigin="anonymous"></script>
 </head>
 <body>
+	<div class="edit__mode">
+		<p><i class="fa-regular fa-pen-to-square"></i>Mode édition</p>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -36,7 +40,10 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes projets</h2>
+		<div class="portfolio__header">
+			<h2>Mes projets</h2>
+			<a href="#" class="display__none"><p><i class="fa-regular fa-pen-to-square"></i>modifier</p></a>
+		</div>
 		<nav class="filter">
 			<!-- Ici va se trouver les filtres générés par le script JS -->
 		</nav>
