@@ -60,8 +60,15 @@ header {
 	margin: 30px 0
 }
 
+.edit_mode_on header {
+	margin-top: 70px;
+}
+
 .edit__mode {
 	display: flex;
+	position: fixed;
+	left: 0;
+	top: 0;
     width: 100%;
 	justify-content: center;
 	background-color: black;
@@ -242,7 +249,7 @@ footer nav ul {
 
 /* ajout d'un display none en class pour eviter tout conflit de specificité */
 
-.display__none {
+html .display__none {
 	display: none;
 }
 
