@@ -25,7 +25,6 @@ async function loginAuthentification() {
             }
             const json = await response.json();
             const token = json.token;
-            console.log(token);
             localStorage.setItem("token", token);
 
             window.location.href = "index.html";
