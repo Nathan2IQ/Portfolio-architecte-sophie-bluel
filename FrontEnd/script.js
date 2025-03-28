@@ -106,3 +106,38 @@ navFilter.appendChild(tousBtn);
 //je lance la fonction
 generateBtnFilter();
 
+//je verifie si le token est valide
+function checkToken() {
+
+    const token = localStorage.getItem("token");
+    const body = document.querySelector("body");
+    const logoutBtn = document.querySelector(".lien__login");
+
+    if (!token) {
+        console.log("Token non valide");
+        body.classList.remove("edit_mode_on");
+        logoutBtn.textContent = "login";
+    } else {
+        console.log("Token valide");
+        body.classList.add("edit_mode_on");
+        logoutBtn.textContent = "logout";
+    }
+}
+
+checkToken();
+
+//je fais une fonction pour se deconnecter
+function logout() {
+    localStorage.removeItem("token");
+}
+
+const logoutBtn = document.querySelector(".lien__login");
+
+//je fais un event listener sur le bouton de deconnexion pour se deconnecter
+logoutBtn.addEventListener("click", (event) => {
+    if (logoutBtn.textContent === "logout") {
+        event.preventDefault();
+        logout();
+        checkToken();
+    }
+});

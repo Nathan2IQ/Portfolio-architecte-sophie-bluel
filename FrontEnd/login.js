@@ -18,10 +18,7 @@ async function loginAuthentification() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    email,
-                    password
-            })
+                body: JSON.stringify({email, password})
             })
             if(!response.ok) {
                 throw new Error("Cannot reach data");
@@ -35,6 +32,13 @@ async function loginAuthentification() {
 
         } catch (error) {
             console.error(error.message);
+            
+            const loginInput = document.querySelectorAll(".login__form input");
+            loginInput.forEach(input => {
+                if(input.type !== "submit") {
+                    input.classList.add("login__form__input--error");
+                }
+        });
         }
     });
 }

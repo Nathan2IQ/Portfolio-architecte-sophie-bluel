@@ -60,24 +60,6 @@ header {
 	margin: 30px 0
 }
 
-.edit_mode_on header {
-	margin-top: 70px;
-}
-
-.edit__mode {
-	display: flex;
-	position: fixed;
-	left: 0;
-	top: 0;
-    width: 100%;
-	justify-content: center;
-	background-color: black;
-	color: white;
-	padding: 15px;
-	font-size: 14px;
-	font-weight: 400;
-}
-
 section {
 	margin: 50px 0
 }
@@ -151,14 +133,6 @@ li:hover {
 
 .portfolio__header h2 {
     margin: 0;
-}
-
-.portfolio__header a {
-    font-size: 14px;
-    color: black;
-    display: flex;
-    margin-left: 10px;
-	text-decoration: none;
 }
 
 .filter {
@@ -249,7 +223,7 @@ footer nav ul {
 
 /* ajout d'un display none en class pour eviter tout conflit de specificité */
 
-html .display__none {
+.display__none {
 	display: none;
 }
 
@@ -309,4 +283,43 @@ html .display__none {
 
 .btn__submit {
 	cursor: pointer;
+}
+
+/* ajout de style si le login est incorrect */
+
+.login__form__input--error {
+	border: 3px solid #C70000;
+	color: #C70000;
+}
+
+/* ajout de style pour le mode édition si le token est valide */
+
+.edit__mode {
+	display: none;
+}
+
+body.edit_mode_on header {
+	margin-top: 70px;
+}
+
+body.edit_mode_on .edit__mode {
+	display: flex;
+	position: fixed;
+	left: 0;
+	top: 0;
+    width: 100%;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	padding: 15px;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+body.edit_mode_on .portfolio__header a {
+    font-size: 14px;
+    color: black;
+    display: flex;
+    margin-left: 10px;
+	text-decoration: none;
 }
