@@ -85,3 +85,45 @@ const toggleModal = () => {
 };
 
 toggleModal();
+
+//
+// Fonction pour supprimer un projet
+//
+// Attacher un gestionnaire d'événements au parent
+document.querySelector(".modal__works").addEventListener("click", async (e) => {
+    // Vérifier si l'élément cliqué est une icône de suppression
+    if (e.target.classList.contains("modal__works__delete")) {
+        const workElement = e.target.closest("figure");
+        const workId = workElement.dataset.id;
+
+        const token = localStorage.getItem("token");
+
+        try {
+            // Appeler l'API pour supprimer l'élément
+            const url = `http://localhost:5678/api/works/${workId}`;
+            const response = await fetch(url, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete the work");
+            }
+
+            // Supprimer l'élément du DOM
+            workElement.remove();
+
+            // Supprimer l'élément correspondant dans la galerie principale
+            const galleryElement = document.querySelector(`.gallery figure[data-id="${workId}"]`);
+            if (galleryElement) {
+                galleryElement.remove();
+            }
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+});

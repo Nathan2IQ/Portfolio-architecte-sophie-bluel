@@ -1,7 +1,7 @@
 //
 // Fonction pour récupérer et generer les travaux
 //
-async function generateWorks() {
+export async function generateWorks() {
 
     //je recup l'url de l'api
     const url = "http://localhost:5678/api/works";
@@ -18,10 +18,12 @@ async function generateWorks() {
         //je recup les données en json
         const json = await response.json();
 
+        const divPortfolio = document.querySelector(".gallery");
+        divPortfolio.innerHTML = "";
+
     //je parcours les données pour les afficher et crée les elements
     json.forEach(work => {
-        const divPortfolio = document.querySelector(".gallery");
-
+        
         const workElement = document.createElement("figure");
         workElement.dataset.id = work.id;
         workElement.dataset.category = work.categoryId;
