@@ -116,11 +116,9 @@ function checkToken() {
     const logoutBtn = document.querySelector(".lien__login");
 
     if (!token) {
-        console.log("Token non valide");
         body.classList.remove("edit_mode_on");
         logoutBtn.textContent = "login";
     } else {
-        console.log("Token valide");
         body.classList.add("edit_mode_on");
         logoutBtn.textContent = "logout";
     }
