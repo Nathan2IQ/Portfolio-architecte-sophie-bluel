@@ -9,8 +9,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="script.js" type="module" defer></script>
-	<script src="modal.js" type="module" defer></script>
 	<script src="https://kit.fontawesome.com/24555f729d.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -47,7 +45,7 @@
 		</div>
 
 		<!-- ci-dessous se trouve le code de la modale -->
-		<aside id="modal" class="modal" aria-hidden="true">
+		<aside id="modal" class="modal">
 			<div id="modal__works" class="modal__container">
 				<div class="modal__header">
 					<a><i class="fa-solid fa-xmark closer"></i></a>
@@ -79,8 +77,8 @@
 						<input class="txt__form__input" type="text" name="title" id="title" required>
 						
 						<label class="txt__form__label" for="category">Catégorie</label>
-						<select class="txt__form__input" name="category" id="category" required>
-							
+						<select class="txt__form__input" name="category" id="category">
+							<!-- Ici se trouve les options générées par le script JS -->
 						</select>
 						<div class="modal__break__add"></div>
 						<input class="btn__form__input" type="submit" value="Valider">
@@ -118,5 +116,7 @@
 		</ul>
 	</nav>
 </footer>
+<script src="script.js" type="module" ></script>
+<script src="modal.js" type="module" ></script>
 </body>
 </html>

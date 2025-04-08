@@ -209,6 +209,32 @@ document.getElementById("image").addEventListener("change", (e) => {
     }
 });
 
+//cette fonction est pour l'empechement de soumettre le formulaire si l'image ou le texte n'est pas rempli
+function validateForm() {
+    const imageValid = document.getElementById("image").files.length > 0;
+    const titleValid = document.getElementById("title").value.trim() !== "";
+
+    const submitBtn = document.querySelector(".btn__form__input");
+
+    const isFormValid = imageValid && titleValid;
+    submitBtn.disabled = !isFormValid;
+
+    if(isFormValid) {
+        submitBtn.style.backgroundColor = "#1D6154";
+    }
+    else {
+        submitBtn.style.backgroundColor = "#A7A7A7";
+    }
+}
+
+// Ajouter des écouteurs d'événements pour valider les champs en temps réel
+document.getElementById("image").addEventListener("change", validateForm);
+document.getElementById("title").addEventListener("input", validateForm);
+
+// Valider le formulaire au chargement de la page
+validateForm();
+
+
 // Cette fonction est appelée lorsque le formulaire d'ajout de projet est soumis
 import { generateWorks } from "./script.js";
 
@@ -236,15 +262,34 @@ document.getElementById("formAdd").addEventListener("submit", async (e) => {
         // Réinitialiser le formulaire
         form.reset();
 
+        // Supprimer l'image de prévisualisation
+        const previewImage = document.querySelector(".image__selector img");
+        if (previewImage) {
+            previewImage.remove();
+        }
+
         // Fermer la modale
         const modal = document.querySelector(".modal");
         modal.style.display = "none";
 
-        // Mettre à jour la galerie principale et la modale
+        // Mettre à jour la galerie principale
         document.querySelector(".gallery").innerHTML = ""; // Vider la galerie
         await generateWorks(); // Générer à nouveau les travaux
-        document.querySelector(".modal__works").innerHTML = ""; // Vider la modale
+
+        // Mettre a jour les travaux de la modale        
+        document.querySelector(".modal__works").innerHTML = ""; // Vider les travaux de la modale
         await generateModalWorks(); // Générer à nouveau les travaux dans la modale
+
+        document.getElementById("addImage").style.display = "block"; // Afficher le bouton d'ajout d'image de la modale
+
+        // Afficher la modale de travaux
+        const modalAdd = document.getElementById("modal__add");
+        modalAdd.classList.add("display__none");
+        modalAdd.classList.remove("modal__container");
+        const modalWorks = document.getElementById("modal__works");
+        modalWorks.classList.remove("display__none");
+        modalWorks.classList.add("modal__container");
+        
 
     } catch (error) {
         console.error(error.message);
