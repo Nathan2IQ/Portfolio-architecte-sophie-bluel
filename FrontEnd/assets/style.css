@@ -173,6 +173,8 @@ nav ul {
 nav a {
   text-decoration: none;
   color: inherit;
+  padding: 0 10px;
+  font-size: 1.2em;
 }
 
 nav li {
@@ -337,4 +339,51 @@ footer nav ul {
 .form__input--error {
   border: 3px solid #c70000;
   color: #c70000;
+}
+
+/* ajout de style pour le mode édition si le token est valide */
+
+.edit__mode {
+  display: none;
+}
+
+.fa-pen-to-square {
+  margin-right: 5px;
+}
+
+body.edit_mode_on header {
+  margin-top: 70px;
+}
+
+body.edit_mode_on .edit__mode {
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+body.edit_mode_on .portfolio__header a {
+  font-size: 14px;
+  color: black;
+  display: flex;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.logout__btn {
+  font-size: 1.2em;
+  color: black;
+  text-decoration: none;
+  padding: 0 10px;
+}
+
+.logout__btn:hover {
+  color: #b1663c;
 }

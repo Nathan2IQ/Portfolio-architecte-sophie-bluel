@@ -95,3 +95,35 @@ allButton.addEventListener("click", () => {
 navFilter.appendChild(allButton);
 
 generateFilters();
+
+// je vérifie si le token est valide
+function checkToken() {
+  const token = localStorage.getItem("token");
+  const body = document.querySelector("body");
+  const logoutBtn = document.querySelector("nav a");
+
+  const isLogged = Boolean(token);
+
+  body.classList.toggle("edit_mode_on", isLogged);
+  logoutBtn.classList.toggle("logout__btn", isLogged);
+  logoutBtn.textContent = isLogged ? "logout" : "login";
+}
+
+checkToken();
+
+//je fais une fonction pour se deconnecter
+function logout() {
+  localStorage.removeItem("token");
+}
+
+const logoutBtn = document.querySelector("nav a");
+
+//je fais un event listener sur le bouton de deconnexion pour se deconnecter
+logoutBtn.addEventListener("click", (event) => {
+  if (logoutBtn.textContent === "logout") {
+    event.preventDefault();
+    logout();
+    checkToken();
+    window.location.href = "index.html";
+  }
+});
